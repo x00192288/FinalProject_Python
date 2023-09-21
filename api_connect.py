@@ -1,11 +1,12 @@
 import requests
-
+import json
 
 def GetDublin(): #schedule this to be run every x mins and write to table in database, probably mariadb or mysql 
     try:
-        response = requests.get("https://api.waqi.info/search/?keyword=dublin&token=404010c7adc3ea4857f096fd18785435b4da0d44")
+         
+        response = requests.get("http://api.waqi.info/feed/dublin/?token=404010c7adc3ea4857f096fd18785435b4da0d44")
 
-        print(response.content)
+        #print(response.content)
     except:
         raise Exception("Error returning Dublin search")
     
@@ -14,3 +15,49 @@ def GetDublin(): #schedule this to be run every x mins and write to table in dat
 
 
 
+def printDublin():
+    response = GetDublin()
+    loaded = json.loads(response)
+    data = (loaded["data"])
+
+    aqi = (data["aqi"])
+    idx = (data["idx"])
+    attributionslist = []
+    attributions = (data["attributions"])
+    for i in attributions:
+        attributionslist.append(i["url"])
+
+
+    city = data["city"]
+    longitude = city["geo"][0]
+    latitude = city["geo"][1]
+    location = city["name"]
+    dominentpol = (data["dominentpol"])
+
+    iaqi = data["iaqi"]
+    humidity = iaqi["h"]["v"]
+    no2 = iaqi["no2"]["v"]
+    o3 = iaqi["o3"]["v"]
+    pressure = iaqi["p"]["v"]
+    pm10 = iaqi["pm10"]["v"]
+    pm25 = iaqi["pm25"]["v"]
+    temperature = iaqi["t"]["v"]
+    wind = iaqi["w"]["v"]
+    watergauge = iaqi["wg"]["v"]
+
+    time = data["time"]["s"]
+    timezone = data["time"]["tz"]
+    print(timezone)
+
+    
+
+
+
+    
+
+
+
+
+    
+
+printDublin()

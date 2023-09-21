@@ -1,6 +1,7 @@
 import api_connect
 import mysql.connector
 
+# need to add data into separate columns
 def TableInsert(_response):
     try:
         mydb = mysql.connector.connect(
