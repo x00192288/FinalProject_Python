@@ -45,13 +45,51 @@ def printDublin():
     wind = iaqi["w"]["v"]
     watergauge = iaqi["wg"]["v"]
 
-    time = data["time"]["s"]
+    timefull = data["time"]["s"]
     timezone = data["time"]["tz"]
-    print(timezone)
+    date = timefull.split()[0]
+    time = timefull.split()[1]
+    print(date)
 
     
 
+def parseDublin():
+    response = GetDublin()
+    loaded = json.loads(response)
+    data = (loaded["data"])
 
+    aqi = (data["aqi"])
+    idx = (data["idx"])
+    attributionslist = []
+    attributions = (data["attributions"])
+    for i in attributions:
+        attributionslist.append(i["url"])
+
+
+    city = data["city"]
+    longitude = city["geo"][0]
+    latitude = city["geo"][1]
+    location = city["name"]
+    dominentpol = (data["dominentpol"])
+
+    iaqi = data["iaqi"]
+    humidity = iaqi["h"]["v"]
+    no2 = iaqi["no2"]["v"]
+    o3 = iaqi["o3"]["v"]
+    pressure = iaqi["p"]["v"]
+    pm10 = iaqi["pm10"]["v"]
+    pm25 = iaqi["pm25"]["v"]
+    temperature = iaqi["t"]["v"]
+    wind = iaqi["w"]["v"]
+    watergauge = iaqi["wg"]["v"]
+
+    timefull = data["time"]["s"]
+    timezone = data["time"]["tz"]
+    date = timefull.split()[0]
+    time = timefull.split()[1]
+    #print(response)
+    tupleSend = tuple([response,location,temperature,time,date])
+    return tupleSend
 
     
 
