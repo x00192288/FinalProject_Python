@@ -4,7 +4,7 @@ import json
 def GetDublin(): #schedule this to be run every x mins and write to table in database, probably mariadb or mysql 
     try:
          
-        response = requests.get("http://api.waqi.info/feed/dublin/?token=404010c7adc3ea4857f096fd18785435b4da0d44")
+        response = requests.get("https://api.waqi.info/feed/dublin/?token=404010c7adc3ea4857f096fd18785435b4da0d44")
 
         #print(response.content)
     except:
